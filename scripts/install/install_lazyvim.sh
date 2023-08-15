@@ -1,17 +1,27 @@
 #INFO: tested, works
 
 #!/bin/bash
+if [ -d ~/.dotfiles ]; then
+	echo "already installed!!!"
+	exit 1
+else
+	git clone --recurse-submodules https://github.com/konosubakonoakua/.dotfiles ~/.dotfiles
+fi
 
 # backup required
-mv ~/.config/nvim{,.bak}
+# delete old backups
+if [ -d ~/.config/nvim.bak ]; then
+	rm -rf ~/.config/nvim.bak
+fi
+if [ -d ~/.config/nvim ]; then
+	mv ~/.config/nvim ~/.config/nvim.bak
+fi
 
 # # backup optional but recommended
 # mv ~/.local/share/nvim{,.bak} #BUG: not working
 # mv ~/.local/state/nvim{,.bak}
 # mv ~/.cache/nvim{,.bak}
 
-ln -s $(readlink -f ../nvim) $(readlink -f ~/.config/nvim)
-cd ../nvim
-git submodule init
-git submodule update --remote
-git checkout main
+cd ~/.dotfiles
+ln -s $(readlink -f ./.config/nvim) $(readlink -f ~/.config/nvim)
+cd ./.config/nvim && git checkout main
