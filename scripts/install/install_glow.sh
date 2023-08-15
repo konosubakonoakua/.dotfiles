@@ -2,7 +2,7 @@
 
 #!/bin/bash
 
-GIT_SRC=~/Downloads/glow
+PKG_FOLDER=~/Downloads/glow
 INSTALL_PREFIX=$HOME/.local/
 
 # https://github.com/charmbracelet/glow/releases/download/v1.5.1/glow_Linux_arm64.tar.gz
@@ -15,8 +15,8 @@ echo "Found glow latest veriosn: $version_latest"
 glow_pkg_file=glow_Linux_arm64_${version_latest}.tar.gz
 glow_pkg_folder=glow_${version_latest}_Linux_x86_64
 
-[[ ! -d $GIT_SRC ]] && mkdir $GIT_SRC
-cd $GIT_SRC
+[[ ! -d $PKG_FOLDER ]] && mkdir $PKG_FOLDER
+cd $PKG_FOLDER
 
 if [[ ! -f $glow_pkg_file ]]; then
 	wget https://github.com/charmbracelet/glow/releases/download/v$version_latest/glow_Linux_x86_64.tar.gz -O $glow_pkg_file

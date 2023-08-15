@@ -16,11 +16,11 @@ deps=(
 dpkg -s ${deps[*]} >/dev/null
 [[ ! $? -eq 0 ]] && sudo apt install ${deps[*]}
 
-GIT_SRC=~/Downloads/ctags
-git clone https://github.com/universal-ctags/ctags.git $GIT_SRC
-[[ ! -d $GIT_SRC ]] && return 1
+PKG_FOLDER=~/Downloads/ctags
+git clone https://github.com/universal-ctags/ctags.git $PKG_FOLDER
+[[ ! -d $PKG_FOLDER ]] && return 1
 
-cd $GIT_SRC
+cd $PKG_FOLDER
 
 ./autogen.sh && ./configure --prefix=$HOME/.local # defaults to /usr/local
 

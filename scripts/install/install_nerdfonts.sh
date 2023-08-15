@@ -10,10 +10,10 @@
 release_link=https://github.com/ryanoasis/nerd-fonts/releases
 download_link=$release_link/download
 fonts=(IBMPlexMono JetBrainsMono Lilex)
-GIT_SRC=~/Downloads/nerdfonts
+PKG_FOLDER=~/Downloads/nerdfonts
 INSTALL_PREFIX=$HOME/.fonts/
-mkdir -p $INSTALL_PREFIX && mkdir -p $GIT_SRC
-cd $GIT_SRC
+mkdir -p $INSTALL_PREFIX && mkdir -p $PKG_FOLDER
+cd $PKG_FOLDER
 
 version_latest=$(
 	curl -L $release_link |

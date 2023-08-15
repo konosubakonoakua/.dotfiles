@@ -2,7 +2,7 @@
 
 #!/bin/bash
 
-GIT_SRC=~/Downloads/githubcli
+PKG_FOLDER=~/Downloads/githubcli
 INSTALL_PREFIX=$HOME/.local/
 
 # https://github.com/cli/cli/releases/download/v2.32.1/gh_2.32.1_linux_amd64.tar.gz
@@ -15,8 +15,8 @@ echo "Found githubcli latest veriosn: $version_latest"
 githubcli_pkg_file=gh_${version_latest}_linux_amd64.tar.gz
 githubcli_pkg_folder=gh_${version_latest}_linux_amd64
 
-[[ ! -d $GIT_SRC ]] && mkdir $GIT_SRC
-cd $GIT_SRC
+[[ ! -d $PKG_FOLDER ]] && mkdir $PKG_FOLDER
+cd $PKG_FOLDER
 
 if [[ ! -f $githubcli_pkg_file ]]; then
 	wget https://github.com/cli/cli/releases/download/v$version_latest/$githubcli_pkg_file

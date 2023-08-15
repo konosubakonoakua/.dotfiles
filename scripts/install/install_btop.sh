@@ -2,7 +2,7 @@
 
 #!/bin/bash
 
-GIT_SRC=~/Downloads/btop
+PKG_FOLDER=~/Downloads/btop
 INSTALL_PREFIX=$HOME/.local/
 
 version_latest=$(
@@ -14,7 +14,7 @@ echo "Found btop latest veriosn: $version_latest"
 btop_pkg_file=btop-x86_64-linux-musl.tbz
 btop_pkg_folder=btop-x86_64-linux-musl
 
-mkdir -p $GIT_SRC && cd $GIT_SRC
+mkdir -p $PKG_FOLDER && cd $PKG_FOLDER
 
 if [[ ! -f $btop_pkg_file ]]; then
 	wget https://github.com/aristocratos/btop/releases/download/v$version_latest/$btop_pkg_file

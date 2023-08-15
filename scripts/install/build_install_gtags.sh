@@ -2,7 +2,7 @@
 
 #!/bin/bash
 
-GIT_SRC=~/Downloads/gtags
+PKG_FOLDER=~/Downloads/gtags
 INSTALL_PREFIX=$HOME/.local/
 MAKE_FLAGS=CMAKE_INSTALL_PREFIX=$INSTALL_PREFIX\ 
 MAKE_FLAGS+=CMAKE_BUILD_TYPE=RelWithDebInfo
@@ -19,8 +19,8 @@ deps=(libncurses6-dev emacsen-common libltdl7 libsqlite3-0 doxygen id-utils pyth
 dpkg -s ${deps[*]} >/dev/null
 [[ ! $? -eq 0 ]] && sudo apt install ${deps[*]}
 
-[[ ! -d $GIT_SRC ]] && mkdir $GIT_SRC
-cd $GIT_SRC
+[[ ! -d $PKG_FOLDER ]] && mkdir $PKG_FOLDER
+cd $PKG_FOLDER
 if [[ ! -f $gtags_pkg ]]; then
 	wget https://ftp.gnu.org/pub/gnu/global/$gtags_pkg
 	[[ ! $? -eq 0 ]] && exit 1

@@ -2,7 +2,7 @@
 
 #!/bin/bash
 
-GIT_SRC=~/Downloads/lazygit
+PKG_FOLDER=~/Downloads/lazygit
 INSTALL_PREFIX=$HOME/.local/
 
 version_latest=$(
@@ -14,8 +14,8 @@ echo "Found lazygit latest veriosn: $version_latest"
 lazygit_pkg_file=lazygit_${version_latest}_Linux_x86_64.tar.gz
 lazygit_pkg_folder=lazygit_${version_latest}_Linux_x86_64
 
-[[ ! -d $GIT_SRC ]] && mkdir $GIT_SRC
-cd $GIT_SRC
+[[ ! -d $PKG_FOLDER ]] && mkdir $PKG_FOLDER
+cd $PKG_FOLDER
 
 if [[ ! -f $lazygit_pkg_file ]]; then
 	wget https://github.com/jesseduffield/lazygit/releases/download/v$version_latest/$lazygit_pkg_file
