@@ -1,0 +1,47 @@
+[credential "https://github.com"]
+	helper = 
+	helper = !gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !gh auth git-credential
+[color]
+	ui = auto
+[alias]
+  br = branch
+  bru = branch -u
+  co = checkout
+  cob = checkout -b
+  ci = commit
+  cim = commit -m
+  cia = commit --amend
+  cp = cherry-pick
+  cpa = cherry-pick --abort
+  cpc = cherry-pick --continue
+  cps = cherry-pick --abort
+  df = diff
+  dfc = diff --cached
+  gl = config --global -l
+  gr = grep -Ii
+  lgf = log --oneline ORIG_HEAD.. --stat --no-merges
+  lgg = log --graph --abbrev-commit --date=relative --oneline
+  lgo = log --oneline
+  mg = merge
+  mga = merge --abort
+  mgc = merge --continue
+  mgs = merge --skip
+  rb = rebase
+  rba = rebase --abort
+  rbc = rebase --continue
+  rbi = rebase -i
+  st = status
+  sw = switch
+  pl = pull
+  ph = push
+  unstage = reset HEAD --
+  untrack = =
+  undo = reset --soft HEAD^
+  sts = status -s
+  phf = push -f
+[user]
+	name = konosubakonoakua
+	email = ailike_meow@qq.com
