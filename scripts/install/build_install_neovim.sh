@@ -6,17 +6,33 @@
 # https://github.com/neovim/neovim/wiki/Building-Neovim
 #########################################
 
-deps=(git build-essential make ninja-build gettext cmake unzip curl)
-dpkg -s ${deps[*]} >/dev/null
-[[ ! $? -eq 0 ]] && sudo apt install ${deps[*]}
+# TODO: using `which` first to test installed
+# deps=(git build-essential make ninja-build gettext cmake unzip curl)
+# dpkg -s ${deps[*]} >/dev/null
+# [[ ! $? -eq 0 ]] && sudo apt install ${deps[*]}
 
 PKG_FOLDER=~/Downloads/neovim
 INSTALL_PREFIX=$HOME/.local/
 MAKE_FLAGS=CMAKE_INSTALL_PREFIX=$INSTALL_PREFIX
-MAKE_FLAGS+=\ CMAKE_BUILD_TYPE=RelWithDebInfo
+# MAKE_FLAGS+=\ CMAKE_BUILD_TYPE=RelWithDebInfo
+MAKE_FLAGS+=\ CMAKE_BUILD_TYPE=Release
 
-git clone https://github.com/neovim/neovim $PKG_FOLDER
-[[ ! -d $PKG_FOLDER ]] && return 1
-cd $PKG_FOLDER && git checkout stable
+if [ -d $PKG_FOLDER ]; then
+	echo "$PKG_FOLDER already exists"
+	cd $PKG_FOLDER
+	git pull origin
+else
+	git clone https://github.com/neovim/neovim $PKG_FOLDER
+	cd $PKG_FOLDER
+fi
+
+if [ "$1" = "nightly" ]; then
+	echo "checking out to nightly"
+	git checkout master
+else
+	echo "checking out to stable"
+	git checkout stable
+fi
 make distclean
 make $MAKE_FLAGS install -j
+# rm -rf $PKG_FOLDER
