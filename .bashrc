@@ -123,6 +123,7 @@ alias ll='exa -l --color always --icons -a -s type'
 alias brce='nvim ~/.bashrc'
 alias brcr='source ~/.bashrc'
 alias tmux="TERM=screen-256color-bce tmux"
+alias nvim='nvim --listen /tmp/nvim-server.pipe'
 
 ### SOURCE
 [ -f ~/.cargo/env ] && source ~/.cargo/env
