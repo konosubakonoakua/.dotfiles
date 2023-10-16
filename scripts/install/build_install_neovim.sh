@@ -7,7 +7,7 @@
 #########################################
 
 # TODO: using `which` first to test installed
-# deps=(git build-essential make ninja-build gettext cmake unzip curl)
+# deps=(git build-essential make ninja-build gettext xclip cmake unzip curl python3.10-venv)
 # dpkg -s ${deps[*]} >/dev/null
 # [[ ! $? -eq 0 ]] && sudo apt install ${deps[*]}
 

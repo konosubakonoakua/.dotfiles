@@ -4,7 +4,7 @@
 # https://github.com/tmux/tmux/wiki/Installing
 #########################################
 
-deps=(libevent-dev ncurses-dev build-essential bison pkg-config)
+deps=(automake libevent-dev ncurses-dev build-essential bison pkg-config)
 dpkg -s ${deps[*]} >/dev/null
 [[ ! $? -eq 0 ]] && sudo apt install ${deps[*]}
 

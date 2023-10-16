@@ -19,7 +19,7 @@ else
 fi
 
 if [[ ! -f $nvim_version_file ]]; then
-	wget -O $nvim_version_file
+	curl -L $nvim_pkg_url > $nvim_version_file
 	[[ ! $? -eq 0 ]] && exit 1
 else
 	echo "$nvim_version_file already exits."

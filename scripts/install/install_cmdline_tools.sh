@@ -20,24 +20,24 @@ cargo_tools=(
 	starship
 	procs
 	du-dust
-	exa
+	eza
 	git-delta
 	zoxide
 	dua
 )
 cargo install --locked ${cargo_tools[*]}
 
-bashrc_exa="
-  if hash exa 2>/dev/null; then
-      alias ls='exa'
-      alias l='exa -l --all --group-directories-first --git'
-      alias ll='exa -l --all --all --group-directories-first --git'
-      alias lt='exa -T --git-ignore --level=2 --group-directories-first'
-      alias llt='exa -lT --git-ignore --level=2 --group-directories-first'
-      alias lT='exa -T --git-ignore --level=4 --group-directories-first'
-  else
-      alias l='ls -lah'
-      alias ll='ls -alF'
-      alias la='ls -A'
-  fi
+bashrc_eza="
+if hash eza 2>/dev/null; then
+	alias l='eza --color=auto --icons -F'
+	alias ls='eza -l --color=auto --icons -F --group-directories-first --git'
+	alias ll='eza -l --color=auto --icons -F --all --group-directories-first --git'
+	alias lt='eza -T --color=auto --icons -F --git-ignore --level=2 --group-directories-first'
+	alias llt='eza -lT --color=auto --icons -F --git-ignore --level=2 --group-directories-first'
+	alias lT='eza -T --color=auto --icons -F --git-ignore --level=4 --group-directories-first'
+else
+	alias l='ls -lah'
+	alias ll='ls -alF'
+	alias la='ls -A'
+fi
 "
