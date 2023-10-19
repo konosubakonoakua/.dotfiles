@@ -13,12 +13,13 @@ zig_pkg_file_prefix=$(
 zig_pkg_file=$zig_pkg_file_prefix$zig_pkg_file_suffix
 zig_ver_latest=$(echo $zig_pkg_file | grep -oE "$SEMVER_GREP_REGEX")
 zig_install_path=$INSTALL_PREFIX/opt/$zig_pkg_file_prefix
+mkdir -p $zig_install_path
 dowload_link=https://ziglang.org/download/$zig_ver_latest/$zig_pkg_file
 
 echo "Found zig latest veriosn: $zig_ver_latest"
 echo "Download link: $dowload_link"
 
-[[ ! -d $PKG_FOLDER ]] && mkdir $PKG_FOLDER
+[[ ! -d $PKG_FOLDER ]] && mkdir -p $PKG_FOLDER
 cd $PKG_FOLDER
 
 if [[ ! -f $zig_pkg_file ]]; then

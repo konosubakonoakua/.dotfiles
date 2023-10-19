@@ -5,6 +5,8 @@ if [[ $? -ne 0 ]]; then
 	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 fi
 
+source ~/.bashrc
+
 cargo version
 if [[ $? -ne 0 ]]; then
 	echo "Cargo should be installed."

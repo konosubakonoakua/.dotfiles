@@ -28,6 +28,7 @@ fi
 
 tar -zxvf $githubcli_pkg_file
 cp -rf ./$githubcli_pkg_folder/* $INSTALL_PREFIX
+source ~/.bashrc
 gh --verion
 gh auth login
 echo "githubcli installed."

@@ -31,7 +31,7 @@ esac
 # EXPORTS
 export FZF_DEFAULT_OPTS="--height 16"
 # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:
-export PATH=$PATH:$HOME/rfe1wx/.local/bin:
+export PATH=$HOME/.local/bin:$PATH:
 
 # export http_proxy=http://127.0.0.1:3128
 # export https_proxy=http://127.0.0.1:3128

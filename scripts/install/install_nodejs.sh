@@ -27,7 +27,7 @@ fi
 
 if [[ ! -e $INSTALL_PREFIX ]]; then
 	mkdir $INSTALL_PREFIX && tar -Jxvf $nodejs_pkg_file -C $INSTALL_PREFIX
-	echo "export PATH=$INSTALL_PREFIX/nodejs_pkg_folder/bin:\$PATH" >>~/.bashrc
+	echo "export PATH=$INSTALL_PREFIX/$nodejs_pkg_folder/bin:\$PATH" >>~/.bashrc
 	source ~/.bashrc
 else
 	echo "export PATH=$INSTALL_PREFIX/$nodejs_pkg_folder/bin:\$PATH" >>~/.bashrc

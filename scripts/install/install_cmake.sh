@@ -17,7 +17,9 @@ echo "Found glow latest veriosn: $version_latest"
 CMAKE_DOWNLOAD_URL="https://github.com/Kitware/CMake/releases/download/v3.21.0/cmake-3.21.0-Linux-x86_64.sh"
 
 # Define the installation directory
-INSTALL_DIR="~/.local/opt/cmake"
+INSTALL_DIR=$INSTALL_PREFIX/opt/cmake
+echo "mkdir: $INSTALL_DIR"
+mkdir -p $INSTALL_DIR
 
 # Download the CMake installer script
 wget $CMAKE_DOWNLOAD_URL -O cmake-install.sh
@@ -26,10 +28,10 @@ wget $CMAKE_DOWNLOAD_URL -O cmake-install.sh
 chmod +x cmake-install.sh
 
 # Run the installer with administrative privileges
-sudo ./cmake-install.sh --skip-license --prefix=$INSTALL_DIR
+./cmake-install.sh --skip-license --prefix=$INSTALL_DIR
 
 # Add CMake to the system's PATH
-echo "export PATH=\$PATH:$INSTALL_DIR/bin" >>~/.bashrc
+echo "export PATH=$INSTALL_DIR/bin:\$PATH:" >>~/.bashrc
 source ~/.bashrc
 
 # Clean up the installer script
