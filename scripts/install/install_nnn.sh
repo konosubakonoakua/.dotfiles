@@ -54,3 +54,4 @@ fi
 tar -zxvf $nnn_pkg_file
 chmod +x ./$nnn_exec && cp -f ./$nnn_exec $INSTALL_PREFIX/bin/nnn
 echo "$nnn_exec installed."
+sh -c "$(curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs)"
