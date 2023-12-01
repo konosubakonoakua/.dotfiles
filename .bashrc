@@ -31,6 +31,7 @@ esac
 # EXPORTS
 export FZF_DEFAULT_OPTS="--height 16"
 # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:
+# export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$HOME/.local/lib/pkgconfig:$HOME/.local/lib/x86_64-linux-gnu/pkgconfig:
 export PATH=$HOME/.local/bin:$PATH:
 
 # export http_proxy=http://127.0.0.1:3128
