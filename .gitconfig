@@ -7,24 +7,36 @@
 [color]
 	ui = auto
 [alias]
+  aa = add --all
+  ap = add --patch  # looks at each change, and asks if we want to put it in the repo
+  au = add --update # add just the files that are updated
   br = branch
+  be = branch --edit-description # branch - edit the description
+  bm = branch --merged      # branch and only list branches whose tips are reachable from the specified commit (HEAD if not specified).
+  bnm = branch --no-merged  # branch and only list branches whose tips are not reachable from the specified commit (HEAD if not specified).
   bru = branch -u
   co = checkout
   cob = checkout -b
-  ci = commit
-  cim = commit -m
-  cia = commit --amend
+  c = commit
+  c = commit
+  ca = commit --amend
+  ci = commit --interactive
+  cm = commit -m
   cp = cherry-pick
   cpa = cherry-pick --abort
   cpc = cherry-pick --continue
-  cps = cherry-pick --abort
+  cps = cherry-pick --skip
+  clean-all = clean -ffdx # clean everything to be pristine
   df = diff
   dfc = diff --cached
+  dft = difftool
+  dlog = "!f() { GIT_EXTERNAL_DIFF=difft git log -p --ext-diff $@; }; f"
   gl = config --global -l
   gr = grep -Ii
   lgf = log --oneline ORIG_HEAD.. --stat --no-merges
   lgg = log --graph --abbrev-commit --date=relative --oneline
   lgo = log --oneline
+  ls-ignored = ls-files --others --i --exclude-standard
   mg = merge
   mga = merge --abort
   mgc = merge --continue
@@ -33,15 +45,41 @@
   rba = rebase --abort
   rbc = rebase --continue
   rbi = rebase -i
+  rbu = rebase --interactive @{upstream}
+  rbs = rebase --skip
+  rl = reflog
+  rr = remote
+  rrs = remote show
+  rru = remote update   # fetch updates for a named set of remotes in the repository as defined by remotes.
+  rrp = remote prune    # deletes all stale remote-tracking branches under <name>.
+  sm = submodule
+  smu = submodule update
+  smui = submodule update --init
+  smuir = submodule update --init --recursive
   st = status
+  sts = status -s
+  stsb = status -s --branch
   sw = switch
+  tags = tag -n1 --list
   pl = pull
+  plf = pull --ff-only
+  plm = pull --merge
+  plr = pull --rebase
   ph = push
+  phf = push -f
   unstage = reset HEAD --
   untrack = =
   undo = reset --soft HEAD^
-  sts = status -s
-  phf = push -f
+  # utils
+  grep-all = !"f() { git rev-list --all | xargs git grep \"$@\"; }; f"
 [user]
 	name = konosubakonoakua
-	email = ailike_meow@qq.com
+	email = rafael.ren@foxmail.com
+[diff]
+  tool = difftastic
+[difftool]
+  prompt = false
+[difftool "difftastic"]
+  cmd = difft "$LOCAL" "$REMOTE"
+[pager]
+  difftool = true
