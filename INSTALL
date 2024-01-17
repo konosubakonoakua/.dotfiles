@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+
+print_divider_pre() {
+  echo "                                               "
+  echo "                                               "
+  echo "==============================================="
+}
+
+print_divider_post() {
+  echo "==============================================="
+  echo "                                               "
+  echo "                                               "
+}
+
+install_all() {
+  print_divider_pre
+  echo "Executing: install_all.sh"
+  bash "install_all.sh"
+  print_divider_post
+  exit 0
+}
+
+# Find all 'install.sh' files and record their parent folder names
+install_scripts=($(find . -name "install.sh" -exec dirname {} \;))
+
+# Initialize an empty array to store user-selected items
+selected_items=()
+
+# Loop to let the user select items until they choose to quit
+while true; do
+
+  # Display the list of parent folders
+  print_divider_pre
+  echo "Available install.sh scripts:"
+  for ((i=0; i<${#install_scripts[@]}; i++)); do
+    echo "[$((i+1))] ${install_scripts[i]}"
+  done
+  print_divider_post
+  read -p "Enter the number of the script to select (or 'quit' to exit): " choice
+
+  # Check if the user wants to quit
+  if [ "$choice" == "quit" ]; then
+    break
+  fi
+
+  # Check if the user wants to install all
+  if [ "$choice" == "all" ]; then
+    install_all
+    break
+  fi
+
+  # Validate the user input
+  if [[ ! "$choice" =~ ^[0-9]+$ || "$choice" -lt 1 || "$choice" -gt ${#install_scripts[@]} ]]; then
+    echo "Invalid input. Please enter a valid number or 'quit' to exit or 'all' install all of them."
+    continue
+  fi
+
+  # Add the selected item to the list
+  selected_items+=("${install_scripts[choice-1]}")
+  echo "Selected: ${install_scripts[choice-1]}"
+done
+
+# Print the user-selected items
+print_divider_pre
+echo "User selected items:"
+for item in "${selected_items[@]}"; do
+  echo "- $item"
+done
+print_divider_post
+
+# Execute 'install.sh' in each selected folder
+for item in "${selected_items[@]}"; do
+  print_divider_pre
+  echo "Executing $item/install.sh"
+  bash "$item/install.sh"
+  print_divider_post
+done
+
+echo "Script execution complete."
