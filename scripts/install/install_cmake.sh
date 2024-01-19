@@ -38,4 +38,7 @@ source ~/.bashrc
 rm cmake-install.sh
 
 # Print CMake version to verify installation
-cmake --version
+$(
+    source ~/.bashrc
+    cmake --version
+)
