@@ -2,10 +2,16 @@
 source "$(cd -P "$(dirname "$0")" && pwd -P)/../base.sh"
 
 dst_conf="$HOME/.config/nvim"
+repo="$HOME/.config/lazyvim.conf"
+repo_url="https://github.com/konosubakonoakua/lazyvim.conf.git"
 
 do_install() {
-    mkdir -p "$dst_conf" 2>/dev/null
-    link_file "$src_conf/nvim" "$dst_conf"
+    [ ! -d "$repo" ] && git clone "$repo_url" "$repo"
+    cd "$repo"
+    git checkout main
+    cd -
+    # mkdir -p "$dst_conf" 2>/dev/null
+    link_file "$repo" "$dst_conf"
     return "$?"
 }
 
