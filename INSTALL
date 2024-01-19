@@ -12,6 +12,13 @@ print_divider_post() {
   echo "                                               "
 }
 
+print_user_selected() {
+    echo "User selected items:"
+    for item in "${selected_items[@]}"; do
+      echo "- $item"
+    done
+}
+
 install_all() {
   print_divider_pre
   echo "Executing: install_all.sh"
@@ -35,8 +42,10 @@ while true; do
   for ((i=0; i<${#install_scripts[@]}; i++)); do
     echo "[$((i+1))] ${install_scripts[i]}"
   done
+  print_user_selected
   print_divider_post
   read -p "Enter the number of the script to select (or 'quit' to exit): " choice
+
 
   # Check if the user wants to quit
   if [ "$choice" == "quit" ]; then
@@ -59,14 +68,6 @@ while true; do
   selected_items+=("${install_scripts[choice-1]}")
   echo "Selected: ${install_scripts[choice-1]}"
 done
-
-# Print the user-selected items
-print_divider_pre
-echo "User selected items:"
-for item in "${selected_items[@]}"; do
-  echo "- $item"
-done
-print_divider_post
 
 # Execute 'install.sh' in each selected folder
 for item in "${selected_items[@]}"; do

@@ -89,14 +89,17 @@ link_file() {
 
         if [[ $skip == true ]]; then
             info "Skipped to link $src to $dst"
+            return 0
         fi
     fi
 
     if [[ $skip != true ]]; then # "false" or empty
         if ln -s "$src" "$dst"; then
             success "Linked $src to $dst"
+            return 0
         else
             fail "Fail to link $src to $dst"
+            return 1
         fi
 
     fi
@@ -129,7 +132,13 @@ install() {
     fi
     success "Installing $cmd config."
     do_install
-    success "Installed $cmd config successfully."
+    if [ "$?" = "0" ]; then
+        success "Installed $cmd config successfully."
+        return 0
+    else
+        fail "Failed to install $cmd config!"
+        return 1
+    fi
 }
 
 if [[ $(basename "$0") == base.sh ]]; then
