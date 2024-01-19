@@ -1,4 +1,4 @@
-./install_from_github_release.sh \
+bash install_from_github_release.sh \
 	~/Downloads/neovide \
 	~/.local/bin \
 	'https://github.com' \

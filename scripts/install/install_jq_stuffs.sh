@@ -12,7 +12,7 @@
 # EXEC_RAW_NO_NEED_TO_UNZIP:
 # UNZIP_CMD_PREFIX:
 
-./install_from_github_release.sh \
+bash install_from_github_release.sh \
 	~/Downloads/jq \
 	~/.local/bin \
 	'https://github.com' \
@@ -27,7 +27,7 @@
 	'nozip' \
 	'tar -zxvf'
 
-./install_from_github_release.sh \
+bash install_from_github_release.sh \
 	~/Downloads/jqp \
 	~/.local/bin \
 	'https://github.com' \
@@ -42,7 +42,7 @@
 	'zip' \
 	'tar -zxvf'
 
-./install_from_github_release.sh \
+bash install_from_github_release.sh \
 	~/Downloads/gojq \
 	~/.local/bin \
 	'https://github.com' \
