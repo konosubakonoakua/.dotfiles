@@ -6,7 +6,7 @@ mkdir -p "$dir"
 if [[ -x "$dir/zellij" ]]
 then
     echo "Already installed:"
-    "$dir/zellij --version"
+    "$dir/zellij" --version
     exit 0
 fi
 
@@ -39,6 +39,8 @@ esac
 url="https://github.com/zellij-org/zellij/releases/latest/download/zellij-$arch-$sys.tar.gz"
 curl --location "$url" | tar -C "$dir" -xz
 if [[ $? -ne 0 ]]
+    "$dir/zellij" --version
+    exit 0
 then
     echo
     echo "Extracting binary failed, cannot launch zellij :("
@@ -47,5 +49,3 @@ then
     exit 1
 fi
 
-"$dir/zellij --version"
-exit
