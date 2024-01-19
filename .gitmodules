@@ -1,4 +1,0 @@
-[submodule "nvim"]
-	path = neovim/nvim
-	url = https://github.com/konosubakonoakua/lazyvim.conf
-	branch = main
