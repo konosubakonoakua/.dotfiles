@@ -59,7 +59,7 @@ gui:
 git:
   paging:
     colorArg: always
-    useConfig: false
+    useConfig: true
     externalDiffCommand: difft --color=always --display=inline --syntax-highlight=off
   commit:
     signOff: false
@@ -280,6 +280,12 @@ customCommands:
     context: 'global'
     command: "git commit"
     subprocess: true
+
+  - key: 'E'
+    description: 'Add empty commit'
+    context: 'commits'
+    command: 'git commit --allow-empty -m "empty commit"'
+    loadingText: 'Committing empty commit...'
   ##################################################################
 
 
@@ -292,12 +298,15 @@ customCommands:
     loadingText: "Pushing commit..."
     description: "Push a specific commit (and any preceding)"
     stream: yes
-
-  - key: '<c-p>'
+  - key: '<c-P>'
     command: "git push origin HEAD:refs/for/{{.CheckedOutBranch.Name}}"
     context: 'global'
     loadingText: 'pushing'
-  - key: '<c-P>'
+  # - key: '<A-p>'
+  #   command: "git push -f"
+  #   context: 'global'
+  #   loadingText: 'pushing'
+  - key: '<c-p>'
     description: "Push to a specific remote repository"
     context: 'global'
     loadingText: 'Pushing ...'
@@ -352,4 +361,22 @@ customCommands:
         initialValue: ''
     command: "git flow {{.Form.BranchType}} start {{.Form.BranchName}}"
     loadingText: 'Creating branch'
+
+  - key: 'D'
+    command: git diff {{.SelectedLocalBranch.Name}} > /tmp/lazygit.patch && git reset --hard {{.SelectedLocalBranch.Name}} && git apply /tmp/lazygit.patch 
+    context: localBranches
+    description: Extract diff into index
+
+  - key: '<c-f>'
+    description: 'fetch a remote branch as a new local branch'
+    command: "git fetch {{index .SelectedRemote.Name }} {{index .PromptResponses 0}}:{{index .PromptResponses 1}}"
+    context: 'remotes'
+    prompts:
+      - type: 'input'
+        title: 'Remote Branch Name'
+        initialValue: ''
+      - type: 'input'
+        title: 'New Local Branch Name'
+        initialValue: ''
+    loadingText: 'fetching branch'
   ##################################################################
