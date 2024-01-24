@@ -10,7 +10,7 @@
 ### lazyvim standalone install
 
 ```bash
-curl -L https://raw.githubusercontent.com/konosubakonoakua/.dotfiles/main/scripts/install/install_lazyvim.conf.sh | sh
+curl -L https://raw.githubusercontent.com/konosubakonoakua/.dotfiles/main/scripts/install/lazyvim.conf.sh | sh
 ```
 
 ### misc
