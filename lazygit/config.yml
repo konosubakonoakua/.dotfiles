@@ -91,9 +91,16 @@ git:
   disableForcePushing: false
   parseEmoji: false
 os:
-  edit: 'nvim --server "$NVIM" --remote-tab {{filename}}'
-  editAtLine: 'nvim --server "$NVIM" --remote-tab {{filename}}; [ -z "$NVIM" ] || nvim --server "$NVIM" --remote-send ":{{line}}<CR>"'
-  editAtLineAndWait: 'nvim +{{line}} {{filename}}'
+  # MUST keep cwd the same as current repo path
+  # TODO: nvim edit not working
+  #
+  # https://github.com/jesseduffield/lazygit/discussions/3160
+  #'nvim --server $NVIM --remote-tab "$(git -C $(dirname {{.SelectedFile.Name}}) rev-parse --show-toplevel)/{{.SelectedFile.Name}}"'
+  edit: 'nvim --cmd "cd `$(git -C $(dirname {{ filename }}) rev-parse --show-toplevel)`" -- {{filename}}'
+  editAtLine: 'nvim --cmd "cd `$(git -C $(dirname {{ filename }}) rev-parse --show-toplevel)`" -- {{filename}}:{{line}}:1'
+  # edit: 'nvim --server $NVIM --remote-tab "$(git -C $(dirname {{.SelectedFile.Name}}) rev-parse --show-toplevel)/{{.SelectedFile.Name}}"'
+  # editAtLine: 'nvim --server $NVIM --remote-tab "$(git -C $(dirname {{.SelectedFile.Name}}) rev-parse --show-toplevel)/{{.SelectedFile.Name}}"; [ -z "$NVIM" ] || nvim --server "$NVIM" --remote-send ":{{line}}<CR>"'
+  # editAtLineAndWait: 'nvim +{{line}} "$(git -C $(dirname {{.SelectedFile.Name}}) rev-parse --show-toplevel)/{{.SelectedFile.Name}}"'
   copyToClipboardCmd: '' # See 'Custom Command for Copying to Clipboard' section
   editPreset: '' # see 'Configuring File Editing' section
   open: ''
@@ -333,6 +340,12 @@ customCommands:
     context: 'files'
     command: "git {{if .SelectedFile.HasUnstagedChanges}} add {{else}} reset {{end}} {{.SelectedFile.Name | quote}}"
     description: 'Toggle file staged'
+
+  - key: 'o'
+    command: 'nvim --server $NVIM --remote-tab "$(git -C $(dirname {{.SelectedFile.Name}}) rev-parse --show-toplevel)/{{.SelectedFile.Name}}"'
+    context: 'files'
+    subprocess: true
+    description: 'Open file in Neovim'
   ##################################################################
 
 
