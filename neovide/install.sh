@@ -3,7 +3,7 @@
 source "$(cd -P "$(dirname "$0")" && pwd -P)/../base.sh"
 
 dst_conf_dir="$HOME/.cofig/neovide"
-mkdir -p "dst_conf_dir"
+mkdir -p "$dst_conf_dir"
 
 check() {
     return 0 # do not check for neovide
