@@ -38,15 +38,25 @@ export PATH=$HOME/.local/bin:$PATH:
 # export https_proxy=http://127.0.0.1:3128
 # export ftp_proxy=http://127.0.0.1:3128
 
-alias bat='bat -pp --theme="Nord"'
-alias ls='exa -G --color auto --icons -a -s type'
-alias ll='exa -l --color always --icons -a -s type'
 alias tmux="TERM=screen-256color-bce tmux"
-alias nvim='nvim --listen /tmp/nvim-server.pipe'
-
+# alias nvim='nvim --listen /tmp/nvim-server.pipe'
 alias rce='nvim ~/.bashrc'
 alias rcr='source ~/.bashrc'
-alias uniq_hist='awk "!a[$0]++" $HISTFILE > $HISTFILE.tmp && mv $HISTFILE.tmp $HISTFILE'
+rcc() {
+  datetime=$(date +%s)
+  mkdir -p $HOME/.bash_history_bak
+  cp $HOME/.bash_history $HOME/.bash_history_bak/.bash_history.$datetime
+  awk '$1=$1' $HISTFILE > $HISTFILE.tmp     # remove all unnecessary spaces
+  awk '!a[$0]++' $HISTFILE.tmp > $HISTFILE  # remove all dups
+  rm $HISTFILE.tmp
+}
+mkcd ()
+{
+  mkdir -p -- "$1" && cd -P -- "$1"
+}
+[ -x "exa" ] && alias ls='exa -G --color auto --icons -a -s type'
+[ -x "exa" ] && alias ll='exa -l --color always --icons -a -s type'
+[ -x "bat" ] && alias bat='bat -pp --theme="Nord"'
 
 [ -f ~/.bash_aliases ] && source ~/.bash_aliases
 [ -f ~/.cargo/env ] && source ~/.cargo/env
