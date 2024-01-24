@@ -58,6 +58,8 @@ mkcd ()
 [ -x "exa" ] && alias ll='exa -l --color always --icons -a -s type'
 [ -x "bat" ] && alias bat='bat -pp --theme="Nord"'
 
+[ -x "difft" ] && export GIT_EXTERNAL_DIFF=difft
+
 [ -f ~/.bash_aliases ] && source ~/.bash_aliases
 [ -f ~/.cargo/env ] && source ~/.cargo/env
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
