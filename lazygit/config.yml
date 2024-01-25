@@ -95,16 +95,17 @@ os:
   # TODO: nvim edit not working
   #
   # https://github.com/jesseduffield/lazygit/discussions/3160
+  #https://github.com/neovim/neovim/pull/11009
   #'nvim --server $NVIM --remote-tab "$(git -C $(dirname {{.SelectedFile.Name}}) rev-parse --show-toplevel)/{{.SelectedFile.Name}}"'
   edit: 'nvim --cmd "cd `$(git -C $(dirname {{ filename }}) rev-parse --show-toplevel)`" -- {{filename}}'
   editAtLine: 'nvim --cmd "cd `$(git -C $(dirname {{ filename }}) rev-parse --show-toplevel)`" -- {{filename}}:{{line}}:1'
   # edit: 'nvim --server $NVIM --remote-tab "$(git -C $(dirname {{.SelectedFile.Name}}) rev-parse --show-toplevel)/{{.SelectedFile.Name}}"'
   # editAtLine: 'nvim --server $NVIM --remote-tab "$(git -C $(dirname {{.SelectedFile.Name}}) rev-parse --show-toplevel)/{{.SelectedFile.Name}}"; [ -z "$NVIM" ] || nvim --server "$NVIM" --remote-send ":{{line}}<CR>"'
   # editAtLineAndWait: 'nvim +{{line}} "$(git -C $(dirname {{.SelectedFile.Name}}) rev-parse --show-toplevel)/{{.SelectedFile.Name}}"'
-  copyToClipboardCmd: '' # See 'Custom Command for Copying to Clipboard' section
-  editPreset: '' # see 'Configuring File Editing' section
-  open: ''
-  openLink: ''
+  # copyToClipboardCmd: '' # See 'Custom Command for Copying to Clipboard' section
+  # editPreset: '' # see 'Configuring File Editing' section
+  # open: ''
+  # openLink: ''
 refresher:
   refreshInterval: 10 # File/submodule refresh interval in seconds. Auto-refresh can be disabled via option 'git.autoRefresh'.
   fetchInterval: 60 # Re-fetch interval in seconds. Auto-fetch can be disabled via option 'git.autoFetch'.
@@ -256,6 +257,12 @@ customCommands:
     command: "git difftool -y {{.SelectedLocalCommit.Sha}} -- {{.SelectedCommitFile.Name}}"
     context: 'commitFiles'
     description: 'Compare (difftool) with local copy'
+  - key: '<c-f>'  # Ctrl-f (think "full screen") to show selected commit
+    context: 'commits'
+    command: "git show {{.SelectedLocalCommit.Sha}}"
+    subprocess: true
+    description: "Show selected commit"
+    stream: true
   ##################################################################
 
 
