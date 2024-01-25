@@ -54,11 +54,14 @@ mkcd ()
 {
   mkdir -p -- "$1" && cd -P -- "$1"
 }
-[ -x "exa" ] && alias ls='exa -G --color auto --icons -a -s type'
-[ -x "exa" ] && alias ll='exa -l --color always --icons -a -s type'
-[ -x "bat" ] && alias bat='bat -pp --theme="Nord"'
+[ -x "$(command -v exa)" ] && alias ls='exa -G --color auto --icons -a -s type'
+[ -x "$(command -v exa)" ] && alias ll='exa -l --color always --icons -a -s type'
+[ -x "$(command -v bat)" ] && alias bat='bat -pp --theme="Nord"'
 
-[ -x "difft" ] && export GIT_EXTERNAL_DIFF=difft
+[ -x "$(command -v difft)" ] && export GIT_EXTERNAL_DIFF="difft"
+[ -z "$TMUX" ] && export EDITOR="vi" && export VISUAL="vi"
+# [ -x "$(command -v vi)" -a -z "$TMUX" ] && export EDITOR="vi" && export VISUAL="vi"
+
 
 [ -f ~/.bash_aliases ] && source ~/.bash_aliases
 [ -f ~/.cargo/env ] && source ~/.cargo/env
