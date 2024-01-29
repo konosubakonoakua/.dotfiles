@@ -54,6 +54,36 @@ mkcd ()
 {
   mkdir -p -- "$1" && cd -P -- "$1"
 }
+scp_from () {
+  if [ -z $SCP_SERVER ]; then
+    echo "SCP_SERVER not defined"
+    return 1
+  fi
+  src="$USER@$SCP_SERVER:$1"
+  dst="$2"
+  cmd="scp $src $dst"
+  echo "Please confirm:"
+  echo ">>>>$cmd"
+  read -p "y[Y]? " -n 1 -r
+  echo "" # newline
+  [[ $REPLY =~ ^[Yy]$ ]] && bash -c "${cmd}"
+  return 1
+}
+scp_to () {
+  if [ -z $SCP_SERVER ]; then
+    echo "SCP_SERVER not defined"
+    return 1
+  fi
+  dst="$USER@$SCP_SERVER:$1"
+  src="$2"
+  cmd="scp $src $dst"
+  echo "Please confirm:"
+  echo ">>>>$cmd"
+  read -p "y[Y]? " -n 1 -r
+  echo "" # newline
+  [[ $REPLY =~ ^[Yy]$ ]] && bash -c "${cmd}"
+  return 1
+}
 [ -x "$(command -v exa)" ] && alias ls='exa -G --color auto --icons -a -s type'
 [ -x "$(command -v exa)" ] && alias ll='exa -l --color always --icons -a -s type'
 [ -x "$(command -v bat)" ] && alias bat='bat -pp --theme="Nord"'
