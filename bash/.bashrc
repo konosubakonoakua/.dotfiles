@@ -38,6 +38,8 @@ export PATH=$HOME/.local/bin:$PATH:
 # export https_proxy=http://127.0.0.1:3128
 # export ftp_proxy=http://127.0.0.1:3128
 
+alias nviml='nvim -R -u NONE -c "set nowrap nofoldenable ft= syntax=off ttyfast"'
+alias viml='vim -R -u NONE -c "set nowrap nofoldenable ft= syntax=off ttyfast"'
 alias tmux="TERM=screen-256color-bce tmux"
 # alias nvim='nvim --listen /tmp/nvim-server.pipe'
 alias rce='nvim ~/.bashrc'
@@ -50,7 +52,7 @@ rcc() {
   awk '!a[$0]++' $HISTFILE.tmp > $HISTFILE  # remove all dups
   rm $HISTFILE.tmp
 }
-mkcd ()
+mkdircd ()
 {
   mkdir -p -- "$1" && cd -P -- "$1"
 }
