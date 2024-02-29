@@ -2,7 +2,7 @@
 
 source "$(cd -P "$(dirname "$0")" && pwd -P)/../base.sh"
 
-dst_conf_dir="$HOME/.cofig/neovide"
+dst_conf_dir="$HOME/.config/neovide"
 mkdir -p "$dst_conf_dir"
 
 check() {
