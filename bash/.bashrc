@@ -98,5 +98,7 @@ scp_to () {
 [ -f ~/.bash_aliases ] && source ~/.bash_aliases
 [ -f ~/.cargo/env ] && source ~/.cargo/env
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f ~/.blerc ] && source ~/.local/share/blesh/ble.sh
+
 eval "$(zoxide init bash)"
 eval "$(starship init bash)"

@@ -1,0 +1,85 @@
+# blerc
+bleopt default_keymap=vi
+
+# ble-import contrib/colorglass
+# bleopt colorglass_gamma=0
+# bleopt colorglass_contrast=0     # -100..100
+# bleopt colorglass_rotate=0
+# bleopt colorglass_saturation=0   # -100..100
+# bleopt colorglass_brightness=0   # -100..100
+# bleopt colorglass_alpha=255      # 0..255
+# bleopt colorglass_color=0x8888FF # background of alpha
+
+# bleopt canvas_winch_action=redraw-prev
+
+# bleopt exec_elapsed_enabled=1 # show execution time
+ble-import contrib/prompt-elapsed
+bleopt prompt_rps1='\g{fg=69,italic}\q{contrib/elapsed}'
+
+# ble-import contrib/prompt-vim-mode
+# PS1='[\u@\h \W]\q{contrib/vim-mode}\$ '
+# bleopt keymap_vi_mode_show:=
+
+### https://github.com/akinomyoga/blesh-contrib#option-2-setup-in-blerc
+_ble_contrib_fzf_base="$HOME/.fzf/"
+# Note: If you would like to combine fzf-completion with bash_completion, you
+# need to load bash_completion earlier than fzf-completion.
+source /etc/profile.d/bash_completion.sh
+ble-import integration/fzf-completion
+ble-import integration/fzf-key-bindings
+
+### https://github.com/akinomyoga/blesh-contrib#pencil-integrationfzf-git
+_ble_contrib_fzf_git_config=key-binding:sabbrev:arpeggio
+ble-import -d integration/fzf-git
+
+# (Normal mode) C-r: redo / isearch
+ble-bind -m vi_nmap -f 'C-r' history-isearch-backward
+
+# in blehook keymap_vi_load
+source "$_ble_base/lib/vim-surround.sh"
+bleopt vim_surround_45:=$'$( \r )' # for ysiw-
+bleopt vim_surround_61:=$'$(( \r ))' # for ysiw=
+bleopt vim_surround_q:=\' # for ysiwq
+bleopt vim_surround_Q:=\" # for ysiwQ
+
+# sabbrev
+## insert date using \date
+function blerc/define-sabbrev-date {
+  ble-sabbrev -m '\date'='ble/util/assign COMPREPLY "date +%F"'
+}
+blehook/eval-after-load complete blerc/define-sabbrev-date
+
+## insert branch using \branch
+function blerc/define-sabbrev-branch {
+  function blerc/sabbrev-git-branch {
+    ble/util/assign-array COMPREPLY "git branch | sed 's/^\*\{0,1\}[[:space:]]*//'" 2>/dev/null
+  }
+  ble-sabbrev -m '\branch'=blerc/sabbrev-git-branch
+}
+blehook/eval-after-load complete blerc/define-sabbrev-branch
+
+## insert commit id using \commit
+# blerc
+
+function blerc/define-sabbrev-commit {
+  ble/color/defface blerc_git_commit_id fg=navy
+  ble/complete/action#inherit-from blerc_git_commit_id word
+  function ble/complete/action:blerc_git_commit_id/init-menu-item {
+    local ret
+    ble/color/face2g blerc_git_commit_id; g=$ret
+  }
+  function blerc/sabbrev-git-commit {
+    bleopt sabbrev_menu_style=desc-raw
+    bleopt sabbrev_menu_opts=enter_menu
+
+    local format=$'%h \e[1;32m(%ar)\e[m %s - \e[4m%an\e[m\e[1;33m%d\e[m'
+    local arr; ble/util/assign-array arr 'git log --pretty=format:"$format"' &>/dev/null
+    local line hash subject
+    for line in "${arr[@]}"; do
+      builtin read hash subject <<< "$line"
+      ble/complete/cand/yield blerc_git_commit_id "$hash" "$subject"
+    done
+  }
+  ble-sabbrev -m '\commit'='blerc/sabbrev-git-commit'
+}
+blehook/eval-after-load complete blerc/define-sabbrev-commit
