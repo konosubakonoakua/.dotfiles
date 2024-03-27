@@ -8,6 +8,12 @@ case $- in
 *) return ;;
 esac
 
+function command_not_found_handler()
+{
+    echo "$1: command not found" >&2
+    return 127
+}
+
 HISTSIZE=-1
 HISTFILESIZE=-1
 HISTCONTROL=ignoreboth:erasedups
@@ -30,6 +36,17 @@ esac
 
 # EXPORTS
 export FZF_DEFAULT_OPTS="--height 16"
+# export FZF_CTRL_R_OPTS="--height 50% --preview 'echo {2..} | bat --color=always -pl sh' --preview-window 'wrap,up,5'"
+export FZF_CTRL_R_OPTS="
+  --preview 'echo {2..} | bat --color=always -pl sh'
+  --preview-window up:hidden:wrap
+  --bind 'ctrl-/:change-preview-window(30%|60%|90%|)'
+  --bind 'ctrl-v:execute(echo {2..} | view - > /dev/tty)'
+  --bind 'ctrl-t:track+clear-query'
+  --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+  --color header:italic
+  --header 'Press CTRL-Y to copy command into clipboard'"
+
 # export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:
 # export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$HOME/.local/lib/pkgconfig:$HOME/.local/lib/x86_64-linux-gnu/pkgconfig:
 export PATH=$HOME/.local/bin:$PATH:
@@ -97,7 +114,7 @@ scp_to () {
 
 [ -f ~/.bash_aliases ] && source ~/.bash_aliases
 [ -f ~/.cargo/env ] && source ~/.cargo/env
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f ~/.fzf.bash ] && [ ! -f ~/.blerc ] && source ~/.fzf.bash
 [ -f ~/.blerc ] && source ~/.local/share/blesh/ble.sh
 
 eval "$(zoxide init bash)"

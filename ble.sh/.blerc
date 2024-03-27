@@ -83,3 +83,5 @@ function blerc/define-sabbrev-commit {
   ble-sabbrev -m '\commit'='blerc/sabbrev-git-commit'
 }
 blehook/eval-after-load complete blerc/define-sabbrev-commit
+
+bleopt keymap_vi_mode_string_nmap=$'\e[1m-- NORMAL --\e[m'
