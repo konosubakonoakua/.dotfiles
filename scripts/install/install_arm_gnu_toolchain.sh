@@ -83,6 +83,7 @@ env)
 	;;
 install) ;;
 *)
+  echo "install_arm_gnu_toolchain.sh [env|install]"
 	exit 1
 	;;
 esac
@@ -146,6 +147,7 @@ PKG_FULL_NAME=$PKG_PREFIX$VERSION-$HOST_OS-$VARIANT$PKG_TYPE
 PKG_FULL_NAME_BASENAME=$(echo $PKG_FULL_NAME | sed "s/$PKG_TYPE//")
 PKG_DOWNLOAD_URL="$REAL_DOWNLOAD_URL/$VERSION/binrel/$PKG_FULL_NAME"
 PKG_INSTALL_PATH_VARIANT_FOLDER="$PKG_INSTALL_PATH/$PKG_FULL_NAME_BASENAME"
+PKG_INSTALL_PATH_VARIANT_FOLDER=${PKG_INSTALL_PATH_VARIANT_FOLDER/rel/Rel}
 
 for VAR in "${_VARS_TO_PRINT[@]}"; do
 	printvar $VAR
@@ -169,7 +171,7 @@ mkdir -p $PKG_INSTALL_PATH
 if [[ ! -d "$PKG_INSTALL_PATH_VARIANT_FOLDER" ]]; then
 	pwd && ls
 	mkdir -p $PKG_INSTALL_PATH_VARIANT_FOLDER
-	echo "extracting in subshell..."
+	echo "extracting into $PKG_INSTALL_PATH_VARIANT_FOLDER"
 	(
 		tar -Jxf $PKG_FULL_NAME -C $PKG_INSTALL_PATH --checkpoint=500 --checkpoint-action=dot
 		if [[ ! $? -eq 0 ]]; then
