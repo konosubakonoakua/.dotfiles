@@ -1,4 +1,20 @@
+OLD_LIBC_RELEASE=https://github.com/neovim/neovim-releases/releases
+MINIMAL_LIBC=2.31
+source "$(cd -P "$(dirname "$0")" && pwd -P)/../shell/libc_version.sh"
+
 cd ~/Downloads
+
+libc_ver_lt "$MINIMAL_LIBC"
+if [ $? -eq 1 ]; then
+	echo
+	echo "##########################################################################################################################################"
+	echo "Current libc is older than minimal version $MINIMAL_LIBC"
+	echo "Please download neovim which built with old libc at $OLD_LIBC_RELEASE"
+	echo "##########################################################################################################################################"
+	echo
+	exit 1
+fi
+
 INSTALL_PREFIX=~/.local/
 if [ "$1" = "nightly" ]; then
 	echo "install nightly"
