@@ -17,3 +17,6 @@ curl -L https://raw.githubusercontent.com/konosubakonoakua/.dotfiles/main/script
 - https://www.conventionalcommits.org/zh-hans/v1.0.0/
 - http://mywiki.wooledge.org/BashPitfalls
 - https://github.com/awesome-lists/awesome-bash
+- stow
+  - https://www.gnu.org/software/stow/manual/stow.html
+  - https://systemcrafters.net/managing-your-dotfiles/using-gnu-stow/
