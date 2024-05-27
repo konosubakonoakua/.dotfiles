@@ -96,9 +96,11 @@ os:
   #
   # https://github.com/jesseduffield/lazygit/discussions/3160
   #https://github.com/neovim/neovim/pull/11009
+  # NOTE: fixed by lazyvim
+  #
   #'nvim --server $NVIM --remote-tab "$(git -C $(dirname {{.SelectedFile.Name}}) rev-parse --show-toplevel)/{{.SelectedFile.Name}}"'
-  edit: 'nvim --cmd "cd `$(git -C $(dirname {{ filename }}) rev-parse --show-toplevel)`" -- {{filename}}'
-  editAtLine: 'nvim --cmd "cd `$(git -C $(dirname {{ filename }}) rev-parse --show-toplevel)`" -- {{filename}}:{{line}}:1'
+  # edit: 'nvim --cmd "cd `$(git -C $(dirname {{ filename }}) rev-parse --show-toplevel)`" -- {{filename}}'
+  # editAtLine: 'nvim --cmd "cd `$(git -C $(dirname {{ filename }}) rev-parse --show-toplevel)`" -- {{filename}}:{{line}}:1'
   # edit: 'nvim --server $NVIM --remote-tab "$(git -C $(dirname {{.SelectedFile.Name}}) rev-parse --show-toplevel)/{{.SelectedFile.Name}}"'
   # editAtLine: 'nvim --server $NVIM --remote-tab "$(git -C $(dirname {{.SelectedFile.Name}}) rev-parse --show-toplevel)/{{.SelectedFile.Name}}"; [ -z "$NVIM" ] || nvim --server "$NVIM" --remote-send ":{{line}}<CR>"'
   # editAtLineAndWait: 'nvim +{{line}} "$(git -C $(dirname {{.SelectedFile.Name}}) rev-parse --show-toplevel)/{{.SelectedFile.Name}}"'
@@ -306,16 +308,16 @@ customCommands:
 
   ##################################################################
   # pushing gerrit
-  - key: 'P'
-    command: "git push {{.SelectedRemote.RefName}} {{.SelectedLocalCommit.Sha}}:{{.SelectedLocalBranch.RefName}}"
-    context: "commits"
-    loadingText: "Pushing commit..."
-    description: "Push a specific commit (and any preceding)"
-    stream: yes
-  - key: '<c-P>'
-    command: "git push origin HEAD:refs/for/{{.CheckedOutBranch.Name}}"
-    context: 'global'
-    loadingText: 'pushing'
+  # - key: 'P'
+  #   command: "git push {{.SelectedRemote.RefName}} {{.SelectedLocalCommit.Sha}}:{{.SelectedLocalBranch.RefName}}"
+  #   context: "commits"
+  #   loadingText: "Pushing commit..."
+  #   description: "Push a specific commit (and any preceding)"
+  #   stream: yes
+  # - key: '<c-P>'
+  #   command: "git push origin HEAD:refs/for/{{.CheckedOutBranch.Name}}"
+  #   context: 'global'
+  #   loadingText: 'pushing'
   # - key: '<A-p>'
   #   command: "git push -f"
   #   context: 'global'
