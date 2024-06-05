@@ -259,6 +259,7 @@ customCommands:
     command: "git difftool -y {{.SelectedLocalCommit.Sha}} -- {{.SelectedCommitFile.Name}}"
     context: 'commitFiles'
     description: 'Compare (difftool) with local copy'
+
   - key: '<c-f>'  # Ctrl-f (think "full screen") to show selected commit
     context: 'commits'
     command: "git show {{.SelectedLocalCommit.Sha}}"
@@ -322,7 +323,7 @@ customCommands:
   #   command: "git push -f"
   #   context: 'global'
   #   loadingText: 'pushing'
-  - key: '<c-p>'
+  - key: '<c-P>'
     description: "Push to a specific remote repository"
     context: 'global'
     loadingText: 'Pushing ...'
@@ -339,6 +340,7 @@ customCommands:
           - value: 'push'
           - value: 'push --force-with-lease'
           - value: 'push --force'
+    command: "git {{index .PromptResponses 1}} {{index .PromptResponses 0}}"
   ##################################################################
 
 
@@ -361,28 +363,28 @@ customCommands:
 
   ##################################################################
   # branches
-  - key: 'n'
-    context: 'localBranches'
-    prompts:
-      - type: 'menu'
-        title: 'What kind of branch is it?'
-        key: 'BranchType'
-        options:
-          - name: 'feature'
-            description: 'a feature branch'
-            value: 'feature'
-          - name: 'hotfix'
-            description: 'a hotfix branch'
-            value: 'hotfix'
-          - name: 'release'
-            description: 'a release branch'
-            value: 'release'
-      - type: 'input'
-        title: 'What is the new branch name?'
-        key: 'BranchName'
-        initialValue: ''
-    command: "git flow {{.Form.BranchType}} start {{.Form.BranchName}}"
-    loadingText: 'Creating branch'
+  # - key: 'n'
+  #   context: 'localBranches'
+  #   prompts:
+  #     - type: 'menu'
+  #       title: 'What kind of branch is it?'
+  #       key: 'BranchType'
+  #       options:
+  #         - name: 'feature'
+  #           description: 'a feature branch'
+  #           value: 'feature'
+  #         - name: 'hotfix'
+  #           description: 'a hotfix branch'
+  #           value: 'hotfix'
+  #         - name: 'release'
+  #           description: 'a release branch'
+  #           value: 'release'
+  #     - type: 'input'
+  #       title: 'What is the new branch name?'
+  #       key: 'BranchName'
+  #       initialValue: ''
+  #   command: "git flow {{.Form.BranchType}} start {{.Form.BranchName}}"
+  #   loadingText: 'Creating branch'
 
   - key: 'D'
     command: git diff {{.SelectedLocalBranch.Name}} > /tmp/lazygit.patch && git reset --hard {{.SelectedLocalBranch.Name}} && git apply /tmp/lazygit.patch 
@@ -401,4 +403,38 @@ customCommands:
         title: 'New Local Branch Name'
         initialValue: ''
     loadingText: 'fetching branch'
+
+  - key: 'a'
+    description: 'add a new remote'
+    context: 'localBranches'
+    prompts:
+      - type: 'input'
+        title: 'Remote Name'
+        initialValue: 'upstream'
+      - type: 'input'
+        title: 'Remote Url'
+        initialValue: ''
+    command: "git remote add {{index .PromptResponses 0}} {{index .PromptResponses 1}}"
+  ##################################################################
+
+  ##################################################################
+  # history
+  - key : '<c-a>'
+    description: 'Search the whole history (From a ref and down) for an expression in a file'
+    command: "git checkout {{index .PromptResponses 3}}"
+    context: 'commits'
+    prompts:
+      - type: 'input'
+        title: 'Search word:'
+      - type: 'input'
+        title: 'File/Subtree:'
+      - type: 'input'
+        title: 'Ref:'
+        initialValue: "{{index .CheckedOutBranch.Name }}"
+      - type: 'menuFromCommand'
+        title: 'Commits:'
+        command: "git log --oneline {{index .PromptResponses 2}} -S'{{index .PromptResponses 0}}' --all -- {{index .PromptResponses 1}}"
+        filter: '(?P<commit_id>[0-9a-zA-Z]*) *(?P<commit_msg>.*)'
+        valueFormat: '{{ .commit_id }}'
+        labelFormat: '{{ .commit_id | green | bold }} - {{ .commit_msg | yellow }}'
   ##################################################################
