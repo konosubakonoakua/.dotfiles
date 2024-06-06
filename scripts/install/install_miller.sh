@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source gh_api.sh
+source "$(cd -P "$(dirname "$0")" && pwd -P)/gh_api.sh"
 url=$(get_github_release_urls johnkerl/miller | grep linux-amd64.tar.gz)
 
 cd ~/Downloads/ && mkdir -p miller
