@@ -1,7 +1,7 @@
 #!/bin/bash
 
-source gh_api.sh
-source check_path.sh
+source "$(cd -P "$(dirname "$0")" && pwd -P)/gh_api.sh"
+source "$(cd -P "$(dirname "$0")" && pwd -P)/check_path.sh"
 
 url=$(get_github_release_urls zellij-org/zellij | grep zellij-x86_64-unknown-linux-musl.tar.gz)
 echo $url
