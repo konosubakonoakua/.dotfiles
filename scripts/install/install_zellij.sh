@@ -9,7 +9,7 @@ echo $url
 cd ~/Downloads/ && mkdir -p zellij
 cd zellij && rm -rf *.tar.gz
 wget $url --no-check-certificate \
-  && tar -vxf *.tar.gz\
+  && tar -vxf *.tar.gz && cp -f ./zellij ~/.local/bin/zellij \
   || echo "failed to download" && exit 1
-cp -f **/zellij ~/.local/bin/zellij
+
 
