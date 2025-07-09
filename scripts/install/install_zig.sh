@@ -7,7 +7,7 @@ INSTALL_PREFIX=$HOME/.local
 SEMVER_GREP_REGEX="[[:digit:]]{1,2}\.[[:digit:]]{1,2}\.[[:digit:]]{1,2}"
 zig_pkg_file_suffix=".tar.xz"
 zig_pkg_file_prefix=$(
-	curl -L https://ziglang.org/download/ | grep -oE "zig-linux-x86_64-$SEMVER_GREP_REGEX\.tar\.xz" |
+	curl -L https://ziglang.org/download/ | grep -oE "zig-x86_64-linux-$SEMVER_GREP_REGEX\.tar\.xz" |
 		awk 'NR==1{print $1}' | sort -r --version-sort | uniq | sed 's/\.tar\.xz//'
 )
 zig_pkg_file=$zig_pkg_file_prefix$zig_pkg_file_suffix
