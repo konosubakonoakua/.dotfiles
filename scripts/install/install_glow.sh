@@ -19,7 +19,7 @@ glow_pkg_folder=glow_${version_latest}_Linux_x86_64
 cd $PKG_FOLDER
 
 if [[ ! -f $glow_pkg_file ]]; then
-	wget https://github.com/charmbracelet/glow/releases/download/v$version_latest/glow_Linux_x86_64.tar.gz -O $glow_pkg_file
+	wget "https://github.com/charmbracelet/glow/releases/download/v$version_latest/glow_${version_latest}_Linux_x86_64.tar.gz" -O $glow_pkg_file
 	[[ ! $? -eq 0 ]] && exit 1
 else
 	echo "$glow_pkg_file already exits."
